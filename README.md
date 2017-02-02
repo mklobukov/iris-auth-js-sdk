@@ -9,7 +9,7 @@ npm i iris-auth-js-sdk
 or can be included from webpage from following cdn:
 
 ```
-https://npmcdn.com/iris-auth-js-sdk@1.0.2/dist/iris.auth.min.js
+https://npmcdn.com/iris-auth-js-sdk@1.0.7/dist/iris.auth.min.js
 ```
 
 ## Registration – Social Media
