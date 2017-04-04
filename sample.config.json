@@ -1,0 +1,8 @@
+{
+  "managementApiUrl": "http://localhost/v1/",
+  "appkey": "",
+  "appsecret": "",
+  "facebook_token": "",
+  "google_token": "",
+  "cima_token": ""
+}
