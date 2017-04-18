@@ -61,6 +61,23 @@ export class AuthManager {
     });
   }
 
+  deviceRegisterAsync(typeId) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'user/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': LOGIN_TYPE_DEVICE,
+        'TypeID': typeId,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
+  }
+
   mediaRegister(type, mediaToken, successCallback, errorCallback) {
     const base64Auth = getAuthString(this.config);
     const requestHeader = new Headers();
@@ -83,6 +100,23 @@ export class AuthManager {
       console.log('Social media register failed: ' + error);
       errorCallback(error);
     });
+  }
+
+  mediaRegisterAsync(type, mediaToken) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'user/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': type,
+        'MediaToken': mediaToken,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
   }
 
   emailRegister(username, email, password, successCallback, errorCallback) {
@@ -111,6 +145,25 @@ export class AuthManager {
     });
   }
 
+  emailRegisterAsync(username, email, password) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'user/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': LOGIN_TYPE_EMAIL,
+        'Email': email,
+        'Password': password,
+        'Name': username,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
+  }
+
   userInformation(token, successCallback, errorCallback) {
     const requestHeader = new Headers();
     requestHeader.append('Content-Type', 'application/json');
@@ -128,6 +181,18 @@ export class AuthManager {
       console.log('Get user information failed: ' + error);
       errorCallback(error);
     });
+  }
+
+  userInformationAsync(token) {
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Bearer ${token}`);
+    return fetch(this.config.managementApiUrl + 'user/current', {
+      method: 'GET',
+      headers: requestHeader,
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
   }
 
   validateUserAccessToken(token, successCallback, errorCallback) {
@@ -148,6 +213,19 @@ export class AuthManager {
       console.log('Validate user token failed: ' + error);
       errorCallback(error);
     });
+  }
+
+  validateUserAccessTokenAsync(token) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'user/validate?access_token=' + token, {
+      method: 'GET',
+      headers: requestHeader,
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
   }
 
   deviceLogin(typeId, successCallback, errorCallback) {
@@ -174,6 +252,23 @@ export class AuthManager {
     });
   }
 
+  deviceLoginAsync(typeId) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'login/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': LOGIN_TYPE_DEVICE,
+        'TypeID': typeId,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
+  }
+
   serverLogin(typeId, successCallback, errorCallback) {
     const base64Auth = getAuthString(this.config);
     const requestHeader = new Headers();
@@ -198,6 +293,23 @@ export class AuthManager {
     });
   }
 
+  serverLogin(typeId) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'login/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': LOGIN_TYPE_SERVER,
+        'TypeId': typeId,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
+  }
+
   mediaLogin(type, mediaToken, successCallback, errorCallback) {
     const base64Auth = getAuthString(this.config);
     const requestHeader = new Headers();
@@ -220,6 +332,23 @@ export class AuthManager {
       console.log('Social media login failed: ' + error);
       errorCallback(error);
     });
+  }
+
+  mediaLoginAsync(type, mediaToken) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'login/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': type,
+        'MediaToken': mediaToken,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
   }
 
   emailLogin(email, password, successCallback, errorCallback) {
@@ -247,6 +376,24 @@ export class AuthManager {
     });
   }
 
+  emailLoginAsync(email, password) {
+    const base64Auth = getAuthString(this.config);
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Basic ${base64Auth}`);
+    return fetch(this.config.managementApiUrl + 'login/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'Type': LOGIN_TYPE_EMAIL,
+        'Email': email,
+        'Password': password,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
+  }
+
   anonymousLogin(userID, successCallback, errorCallback) {
     const requestHeader = new Headers();
     requestHeader.append('Content-Type', 'application/json');
@@ -269,6 +416,21 @@ export class AuthManager {
     });
   }
 
+  anonymousLoginAsync(userID) {
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('X-App-Key', this.config.appkey);
+    return fetch(this.config.managementApiUrl + 'login/anonymous/', {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({
+        'UserID': userID,
+      }),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
+  }
+
   logout(token, successCallback, errorCallback) {
     const requestHeader = new Headers();
     requestHeader.append('Content-Type', 'application/json');
@@ -286,6 +448,18 @@ export class AuthManager {
       console.log('Logout failed: ' + error);
       errorCallback(error);
     });
+  }
+
+  logoutAsync(token) {
+    const requestHeader = new Headers();
+    requestHeader.append('Content-Type', 'application/json');
+    requestHeader.append('Authorization', `Bearer ${token}`);
+    return fetch(this.config.managementApiUrl + 'logout/', {
+      method: 'GET',
+      headers: requestHeader,
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON)
   }
 
   decodeToken(token) {
