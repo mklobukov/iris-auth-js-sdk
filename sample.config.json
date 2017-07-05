@@ -4,5 +4,6 @@
   "appsecret": "",
   "facebook_token": "",
   "google_token": "",
-  "cima_token": ""
+  "cima_token": "",
+  "sso_token": ""
 }

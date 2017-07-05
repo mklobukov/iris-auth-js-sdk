@@ -4,7 +4,8 @@ import {
   LOGIN_TYPE_FACEBOOK,
   LOGIN_TYPE_GOOGLEPLUS,
   LOGIN_TYPE_PINGID,
-  LOGIN_TYPE_CIMA
+  LOGIN_TYPE_CIMA,
+  LOGIN_TYPE_SSO
 } from './index';
 import Config from '../config.json';
 
@@ -442,6 +443,52 @@ describe('cimaLogin', () => {
     authMgr.mediaLogin(LOGIN_TYPE_CIMA, Config.cima_token, (data) => {
       expect(data).to.have.property('Token');
       done();
+    }, (error) => {
+      expect(true).to.be.false;
+      done();
+    });
+  });
+});
+
+describe('ssoRegister', () => {
+  it('should get valid JWT', (done) => {
+    let authMgr = new AuthManager(Config);
+    authMgr.mediaRegister(LOGIN_TYPE_SSO, Config.sso_token, (data) => {
+      expect(data).to.have.property('Token');
+      done();
+    }, (error) => {
+      const responseBody = error.response;
+      expect(responseBody.status).to.equal(401);
+      done();
+    });
+  });
+});
+
+describe('ssoLogin', () => {
+  it('should get valid JWT', (done) => {
+    let authMgr = new AuthManager(Config);
+    authMgr.mediaLogin(LOGIN_TYPE_SSO, Config.sso_token, (data) => {
+      expect(data).to.have.property('Token');
+      done();
+    }, (error) => {
+      expect(true).to.be.false;
+      done();
+    });
+  });
+});
+
+describe('ssoLoginLogout', () => {
+  it('should get valid JWT', (done) => {
+    let authMgr = new AuthManager(Config);
+    authMgr.mediaLogin(LOGIN_TYPE_SSO, Config.sso_token, (data) => {
+      expect(data).to.have.property('Token');
+      authMgr.logout(data.Token, (data) => {
+        expect(data.status).to.equal('User logged out');
+        done();
+      }, (error) => {
+        expect(true).to.be.false;
+        done();
+      });
     }, (error) => {
       expect(true).to.be.false;
       done();
