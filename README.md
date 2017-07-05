@@ -31,6 +31,7 @@ import {
   LOGIN_TYPE_FACEBOOK,
   LOGIN_TYPE_GOOGLEPLUS,
   LOGIN_TYPE_PINGID,
+  LOGIN_TYPE_SSO,
   LOGIN_TYPE_CIMA
 } from 'iris-auth-js-sdk';
 ```
@@ -85,13 +86,13 @@ failureCallback – in case of failure error information will be passed into thi
 
 Returns if the token is valid or not.
 
-## Login - Social Media, Cima or PingID
-Login using social media, Cima or PingID.
+## Login - Social Media, SSO, Cima or PingID
+Login using social media, SSO, Cima or PingID.
 
 ```
 socialLogin(type, mediaToken, successToken, errorCallback)
 
-type – LOGIN_TYPE_FACEBOOK, LOGIN_TYPE_GOOGLEPLUS, LOGIN_TYPE_PINGID, LOGIN_TYPE_CIMA
+type – LOGIN_TYPE_FACEBOOK, LOGIN_TYPE_GOOGLEPLUS, LOGIN_TYPE_PINGID, LOGIN_TYPE_SSO, LOGIN_TYPE_CIMA
 mediaToken – token
 successCallback – when API succeeds this callback will receive JSON response.
 failureCallback – in case of failure error information will be passed into this callback.
